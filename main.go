@@ -10,7 +10,10 @@ type Server struct{}
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(`{"message": "hello world"}`))
+	_, err := w.Write([]byte(`{"message": "hello world"}`))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 func main() {
 	s := &Server{}
